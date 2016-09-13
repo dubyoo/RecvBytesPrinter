@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import sys
+import time
 from socket import *
 
 
@@ -8,7 +9,7 @@ MAX_BUFFER_SIZE = 1024
 UDP_IP = "0.0.0.0"
 
 def print_str(str, addr):
-    print "[DEBUG] recv message from %s(%s):" % (addr[0], addr[1])
+    print "[DEBUG] (%s) recv message from %s(%s):" % (time.asctime(), addr[0], addr[1])
     for c in str:
         if '\r' == c:
             sys.stdout.write("\\r")
@@ -21,7 +22,7 @@ def print_str(str, addr):
 
 
 def print_in_hex(str, addr):
-    print "[DEBUG] recv message(%d bytes) from %s(%s):" % (len(str), addr[0], addr[1])
+    print "[DEBUG] (%s) recv message(%d bytes) from %s(%s):" % (time.asctime(), len(str), addr[0], addr[1])
     index = 0
     for c in str:
         if 0 == index % 4:
@@ -43,7 +44,7 @@ if __name__ == '__main__':
     UDP_PORT = int(sys.argv[1])
     sock = socket(AF_INET, SOCK_DGRAM)
     sock.bind((UDP_IP, UDP_PORT))
-    print "[DEBUG] Linstening port %d ..." % UDP_PORT
+    print "[DEBUG] (%s) Linstening port %d ..." % (time.asctime(), UDP_PORT)
 
     while True:
         data, addr = sock.recvfrom(MAX_BUFFER_SIZE)
